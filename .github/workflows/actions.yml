@@ -1,0 +1,26 @@
+name: run collector.py
+
+on:
+  schedule:
+    - cron: '*/5 10-20 * 3-11 *'
+    
+jobs:
+  build:
+    runs-on: ubunto-latest
+    steps:
+
+    - name: Checkout Repository Content
+      uses: actions/checkout@v2
+
+    - name: Settup Python
+      uses: actions/settup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install Python Packages
+      run:
+        python -m pip install --upgrade pip
+        pip intall -r requirements.txt
+
+    - name: Execute the Python Script
+      run: python 
