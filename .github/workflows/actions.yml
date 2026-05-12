@@ -23,4 +23,17 @@ jobs:
         pip intall -r requirements.txt
 
     - name: Execute the Python Script
-      run: python 
+      run: python queueTimesCollector.py
+
+    - name: Commit Files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --logal user.name "Github Action"
+        git add -A
+        git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
+
+    - name: Push Changes
+      uses: ad-m/github-push-action@v0.6.0
+      with: 
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
